@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Women's Day 20/10 ❤️</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            perspective: 1000px;
+            background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 240, 243, 0.45); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        /* Container chính dạng Card */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 16px 20px;
+            max-width: 380px;
+            width: 85%;
+            max-height: 90vh;
+            text-align: center;
+            box-shadow: 0 12px 35px rgba(223, 115, 143, 0.2);
+            z-index: 10; /* Container ở lớp trung bình */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #d81b60;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .photo-frame {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            padding: 10px 10px 22px 10px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            margin: 6px auto;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.04);
+            box-shadow: 0 15px 30px rgba(216, 27, 96, 0.25);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .letter {
+            font-size: 0.95rem;
+            color: #4a4a4a;
+            line-height: 1.4;
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        /* Chữ ký góc dưới phải */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(216, 27, 96, 0.75);
+            z-index: 50;
+            user-select: none;
+            pointer-events: none;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Floating Items & Text (Đưa z-index lên cao để đè lên container) */
+        .floating-item {
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 5s linear infinite;
+            z-index: 15; 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) rotate(0deg); opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        .floating-text {
+            position: absolute;
+            top: 0;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: none;
+            z-index: 15; /* Cao hơn container (10) để chữ đè lên trên khung */
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            color: #d81b60;
+            text-shadow: 
+                0 0 6px rgba(255, 255, 255, 0.95), 
+                0 0 14px rgba(255, 255, 255, 0.7),
+                0 2px 8px rgba(216, 27, 96, 0.25);
+            opacity: 0;
+            animation: floatText ease-out forwards;
+        }
+
+        @keyframes floatText {
+            0% { transform: translate(0, 105vh) scale(0.85); opacity: 0; }
+            12%, 55% { opacity: 1; }
+            100% { transform: translate(var(--drift, 0px), -10vh) scale(1); opacity: 0; }
+        }
+
+        /* ===== Polaroid Wall ===== */
+        .polaroid-wall {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .polaroid {
+            position: absolute;
+            width: 95px;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .polaroid:hover {
+            transform: translate(-50%, -50%) scale(1.25) !important;
+            z-index: 20;
+        }
+
+        .polaroid-inner {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 5px 5px 16px 5px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 16px rgba(216, 27, 96, 0.18);
+            cursor: pointer;
+            transform: rotate(var(--rot));
+            animation: polaroidIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) both,
+                       polaroidBob var(--bob) ease-in-out infinite;
+            animation-delay: var(--delay), calc(var(--delay) + 0.7s);
+        }
+
+        .polaroid-inner img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        @keyframes polaroidIn {
+            from { opacity: 0; transform: rotate(var(--rot)) scale(0.3) translateY(20px); }
+            to   { opacity: 1; transform: rotate(var(--rot)) scale(1) translateY(0); }
+        }
+
+        @keyframes polaroidBob {
+            0%, 100% { transform: rotate(var(--rot)) translateY(0); }
+            50%      { transform: rotate(calc(var(--rot) + 2deg)) translateY(-4px); }
+        }
+
+        /* Modal Phóng To Ảnh */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 85vw;
+            max-height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid #ffffff;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 25px;
+            color: white; font-size: 35px;
+            font-weight: bold; cursor: pointer;
+            z-index: 101;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="polaroid-wall" id="polaroidWall"></div>
+
+    <div class="container" id="cardContainer">
+        <h1>HAPPY 20/10! ❤️</h1>
+        <div class="photo-frame" onclick="openPhoto()">
+            <img id="mainImg" src="love.jpg" alt="Our Memory">
+        </div>
+        <div class="letter">
+            <p>Always be grateful ! 🌸</p>
+        </div>
+    </div>
+
+    <!-- Dòng chữ ký góc dưới phải -->
+    <div class="watermark">created by nqhung</div>
+
+    <div class="modal" id="photoModal" onclick="closePhoto()">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="expandedImg">
+    </div>
+
+    <script>
+        // Sticker & Trái tim bay (Toàn màn hình, đè lên container)
+        const symbols = ['❤️', '💖', '💕', '🌸', '💐', '🌷', '✨', '🎀', '🧁', '🍓', '🧸'];
+
+        function createFloatingItem() {
+            const item = document.createElement('div');
+            item.classList.add('floating-item');
+            item.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 2 + 4) + 's';
+            item.style.fontSize = (Math.random() * 15 + 24) + 'px';
+            document.body.appendChild(item);
+            setTimeout(() => item.remove(), 6000);
+        }
+        setInterval(createFloatingItem, 250);
+
+        // Chữ chúc bay lên (Toàn màn hình, chạy đè lên container)
+        const messages = [
+            'bin iu nu 💕',
+            'Dung doi anh mu TvT ',
+            'Hong biết nu thích cái này hong ta ',
+            'Một món quà nho nhỏ cho em ne 🎁',
+            'Kiểm tra tốt nhen 🍀✨',
+            'Always be grateful 🌸',
+            'Hạnh phúc và vui vẻ 💐',
+            'Mãi slay nhe mom 🌷',
+            'Nàng thơ thì xênh còn bó bông thì màu xanh 🎀',
+            'Cảm ơn em vì đã lun ở đây 🧸',
+            'Mong là em sẽ thích tấm này 🖼️',
+            'Ê, web anh làm đẹp khôm',
+            'Mốt dẫn tiểu thư đi chụp hình tiếp 📷',
+            'Gửi thêm hình cho anh ii 🥺🙏, anh thêm vào cho đẹp',
+            'Feedback cho ig @qhung_19',
+            'nhớ giữ sức khỏe nha',
+            'ăn trái cây giúp da đẹp',
+            'uống 2 lít nước một ngày thế nó mới xinh gái',
+            'tụi mình nhìn cute nhờ',
+            'chị ơi cho em chụp chung với',
+            'ảnh ptb của em đẹp điên',
+            'Xem ở zoom 100% là đẹp nhất',
+            'ctrl + và ctrl - để zoom to / nhỏ'
+        ];
+
+        let bag = [];
+        function nextMessage() {
+            if (bag.length === 0) bag = [...messages].sort(() => Math.random() - 0.5);
+            return bag.pop();
+        }
+
+        function createFloatingText() {
+            const text = document.createElement('div');
+            text.classList.add('floating-text');
+            text.textContent = nextMessage();
+            text.style.fontSize = (Math.random() * 3 + 20) + 'px';
+            text.style.animationDuration = (Math.random() * 3 + 7) + 's';
+            text.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+            document.body.appendChild(text);
+
+            const maxLeft = Math.max(window.innerWidth - text.offsetWidth - 40, 0);
+            text.style.left = (20 + Math.random() * maxLeft) + 'px';
+            text.addEventListener('animationend', () => text.remove());
+        }
+        setInterval(createFloatingText, 1800);
+
+        // ===== DANH SÁCH ẢNH POLAROID =====
+        const photos = [
+            'photos/1.jpg', 'photos/2.jpg', 'photos/3.jpg', 
+            'photos/4.jpg', 'photos/5.jpg', 'photos/6.jpg', 
+            'photos/7.jpg', 'photos/8.jpg', 'photos/9.jpg', 
+            'photos/10.jpg', 'photos/11.jpg', 'photos/12.jpg'
+        ];
+
+        function preloadImage(src) {
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve(src);
+                img.onerror = () => resolve(null);
+                img.src = src;
+            });
+        }
+
+        async function buildPolaroids() {
+            const wall = document.getElementById('polaroidWall');
+            const loaded = (await Promise.all(photos.map(preloadImage))).filter(Boolean);
+
+            loaded.forEach((src, i) => {
+                const el = document.createElement('div');
+                el.className = 'polaroid';
+                el.innerHTML = '<div class="polaroid-inner"><img alt="" draggable="false"></div>';
+                el.querySelector('img').src = src;
+
+                const rot = (Math.random() * 16 - 8).toFixed(1);
+                el.style.setProperty('--rot', rot + 'deg');
+                el.style.setProperty('--delay', (0.15 + i * 0.08).toFixed(2) + 's');
+                el.style.setProperty('--bob', (3.5 + Math.random() * 2).toFixed(1) + 's');
+
+                el.addEventListener('click', () => openPhoto(src));
+                wall.appendChild(el);
+            });
+
+            layoutPolaroids();
+        }
+
+        // ===== THUẬT TOÁN ĐỊNH VỊ AN TOÀN TUYỆT ĐỐI =====
+        function layoutPolaroids() {
+            const wall = document.getElementById('polaroidWall');
+            const els = Array.from(wall.querySelectorAll('.polaroid'));
+            if (els.length === 0) return;
+
+            const W = window.innerWidth;
+            const H = window.innerHeight;
+            const card = document.getElementById('cardContainer');
+            const cardRect = card.getBoundingClientRect();
+
+            const safeX = 65; 
+            const safeY = 70; 
+
+            const anchorPoints = [
+                // === 3 Tấm bên TRÁI khung chính ===
+                { x: Math.max(60, (cardRect.left - safeX) * 0.45), y: H * 0.25 },
+                { x: Math.max(60, (cardRect.left - safeX) * 0.70), y: H * 0.50 },
+                { x: Math.max(60, (cardRect.left - safeX) * 0.45), y: H * 0.75 },
+
+                // === 3 Tấm bên PHẢI khung chính ===
+                { x: Math.min(W - 60, cardRect.right + safeX + (W - (cardRect.right + safeX)) * 0.35), y: H * 0.25 },
+                { x: Math.min(W - 60, cardRect.right + safeX + (W - (cardRect.right + safeX)) * 0.65), y: H * 0.50 },
+                { x: Math.min(W - 60, cardRect.right + safeX + (W - (cardRect.right + safeX)) * 0.35), y: H * 0.75 },
+
+                // === 3 Tấm phía TRÊN khung chính ===
+                { x: W * 0.33, y: Math.max(60, (cardRect.top - safeY) * 0.50) },
+                { x: W * 0.50, y: Math.max(60, (cardRect.top - safeY) * 0.75) },
+                { x: W * 0.67, y: Math.max(60, (cardRect.top - safeY) * 0.50) },
+
+                // === 3 Tấm phía DƯỚI khung chính ===
+                { x: W * 0.33, y: Math.min(H - 60, cardRect.bottom + safeY + (H - (cardRect.bottom + safeY)) * 0.35) },
+                { x: W * 0.50, y: Math.min(H - 60, cardRect.bottom + safeY + (H - (cardRect.bottom + safeY)) * 0.65) },
+                { x: W * 0.67, y: Math.min(H - 60, cardRect.bottom + safeY + (H - (cardRect.bottom + safeY)) * 0.35) }
+            ];
+
+            els.forEach((el, index) => {
+                if (index >= anchorPoints.length) {
+                    el.style.display = 'none';
+                    return;
+                }
+
+                let pt = anchorPoints[index];
+
+                pt.x = Math.max(60, Math.min(W - 60, pt.x));
+                pt.y = Math.max(60, Math.min(H - 60, pt.y));
+
+                const offsetX = (Math.random() * 10 - 5);
+                const offsetY = (Math.random() * 10 - 5);
+
+                el.style.left = `${pt.x + offsetX}px`;
+                el.style.top = `${pt.y + offsetY}px`;
+            });
+        }
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(layoutPolaroids, 100);
+        });
+
+        buildPolaroids();
+
+        // Modal Phóng To Ảnh
+        function openPhoto(src) {
+            const modal = document.getElementById('photoModal');
+            const mainImg = document.getElementById('mainImg');
+            const expandedImg = document.getElementById('expandedImg');
+            expandedImg.src = src || mainImg.src;
+            modal.classList.add('show');
+        }
+
+        function closePhoto() {
+            document.getElementById('photoModal').classList.remove('show');
+        }
+
+        // Hiệu ứng nghiêng 3D
+        const card = document.getElementById('cardContainer');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
+</body>
+</html>
